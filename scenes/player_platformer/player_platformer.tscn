@@ -1,0 +1,48 @@
+[gd_scene load_steps=6 format=3 uid="uid://f14nblivtsio"]
+
+[ext_resource type="Script" path="res://scenes/player_platformer/player_platformer.gd" id="1_low3m"]
+[ext_resource type="Texture2D" uid="uid://bgn4rvtn75ojh" path="res://scenes/player_platformer/assets/player_placeholder.png" id="3_s4tfs"]
+
+[sub_resource type="Curve" id="Curve_qkg7o"]
+_data = [Vector2(0, 0.8), 0.0, 0.2, 0, 1, Vector2(1, 1), 0.2, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_foavp"]
+size = Vector2(16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6t2ns"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_s4tfs")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_s4tfs")
+}],
+"loop": true,
+"name": &"run",
+"speed": 5.0
+}]
+
+[node name="player_platformer" type="CharacterBody2D"]
+floor_constant_speed = true
+platform_floor_layers = 4294967294
+script = ExtResource("1_low3m")
+MAX_SPEED = 125.0
+ACCELERATION_CURVE = SubResource("Curve_qkg7o")
+jump_time_to_peak = 0.3
+jump_time_to_descent = 0.4
+
+[node name="collider" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_foavp")
+
+[node name="sprite" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
+sprite_frames = SubResource("SpriteFrames_6t2ns")
+animation = &"run"

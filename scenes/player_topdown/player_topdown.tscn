@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://cbmdhevdtj8dw"]
+
+[ext_resource type="Texture2D" uid="uid://6vn3lj5y5yhp" path="res://scenes/player_topdown/assets/player_placeholder.png" id="1_bbp76"]
+[ext_resource type="Script" path="res://scenes/player_topdown/player_topdown.gd" id="1_re6to"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_foavp"]
+size = Vector2(16, 16)
+
+[node name="player_topdown" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_re6to")
+
+[node name="sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_bbp76")
+
+[node name="collider" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_foavp")

@@ -1,0 +1,51 @@
+[gd_scene load_steps=6 format=3 uid="uid://cghl2v28w0p20"]
+
+[ext_resource type="Script" path="res://scenes/main/root.gd" id="1_yqth3"]
+[ext_resource type="Shader" path="res://global/resources/shaders/color_space_correction.gdshader" id="3_5yfru"]
+[ext_resource type="Script" path="res://scenes/main/canvas_texture_shader.gd" id="4_ipmgx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j1pi0"]
+shader = ExtResource("3_5yfru")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_1gduj"]
+viewport_path = NodePath("SubViewportContainer/SubViewport")
+
+[node name="root" type="Node2D"]
+script = ExtResource("1_yqth3")
+
+[node name="camera" type="Camera2D" parent="."]
+position = Vector2(320, 180)
+limit_smoothed = true
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+offset_right = 640.0
+offset_bottom = 360.0
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+unique_name_in_owner = true
+transparent_bg = true
+handle_input_locally = false
+canvas_item_default_texture_filter = 0
+size = Vector2i(640, 360)
+size_2d_override = Vector2i(320, 180)
+size_2d_override_stretch = true
+render_target_update_mode = 4
+
+[node name="canvas_texture_shader" type="TextureRect" parent="."]
+visible = false
+z_as_relative = false
+material = SubResource("ShaderMaterial_j1pi0")
+offset_right = 640.0
+offset_bottom = 360.0
+texture = SubResource("ViewportTexture_1gduj")
+script = ExtResource("4_ipmgx")
+
+[node name="camera2" type="Camera2D" parent="."]
+process_mode = 4
+visible = false
+limit_left = 0
+limit_bottom = 360
+limit_smoothed = true
+position_smoothing_enabled = true
+rotation_smoothing_enabled = true
+editor_draw_screen = false
