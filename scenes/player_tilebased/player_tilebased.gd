@@ -1,14 +1,17 @@
-extends CharacterBody2D
+extends AnimatableBody2D
 
 @export var tile_size: int = 16
 
+func _ready():
+	pass
+
 func _physics_process(_delta):
-	var input: Vector2i = Vector2i(
+	var input: Vector2 = Vector2(
 		int(Input.is_action_just_pressed("player_right")) - int(Input.is_action_just_pressed("player_left")),
 		int(Input.is_action_just_pressed("player_down")) - int(Input.is_action_just_pressed("player_up")),
 	)
-	# TODO: better grid based movement - this one gets stuck on the corners and
-	# TODO: switch to animetable body and check collisions manually?
-	velocity = tile_size * input
-	move_and_slide()
 	
+	if input != Vector2.ZERO:
+		var offset: Vector2 = input * tile_size
+		if not test_move(global_transform, offset):
+			global_position += offset

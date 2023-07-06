@@ -1,16 +1,16 @@
 [gd_scene load_steps=4 format=3 uid="uid://b63ipnrxe6gs"]
 
 [ext_resource type="Script" path="res://scenes/player_tilebased/player_tilebased.gd" id="1_iip0u"]
-[ext_resource type="Texture2D" uid="uid://6vn3lj5y5yhp" path="res://scenes/player_topdown/assets/player_placeholder.png" id="2_5w0ck"]
+[ext_resource type="Texture2D" uid="uid://r5b33gfulu6r" path="res://scenes/player_tilebased/assets/player_placeholder_2.png" id="2_gwo5f"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_foavp"]
 size = Vector2(14, 14)
 
-[node name="player_tilebased" type="CharacterBody2D"]
+[node name="player_tilebased" type="AnimatableBody2D"]
 script = ExtResource("1_iip0u")
 
 [node name="sprite" type="Sprite2D" parent="."]
-texture = ExtResource("2_5w0ck")
+texture = ExtResource("2_gwo5f")
 
 [node name="collider" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_foavp")

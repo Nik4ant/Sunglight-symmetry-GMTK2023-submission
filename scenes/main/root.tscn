@@ -1,7 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://cghl2v28w0p20"]
+[gd_scene load_steps=9 format=3 uid="uid://cghl2v28w0p20"]
 
 [ext_resource type="Script" path="res://scenes/main/root.gd" id="1_yqth3"]
+[ext_resource type="PackedScene" uid="uid://cspf663x1qj7n" path="res://scenes/ui/pause_menu/assets/pause_menu.tscn" id="2_74uef"]
+[ext_resource type="Texture2D" uid="uid://bu0601dsu3v75" path="res://scenes/ui/pause_menu/assets/img/icon_pause.png" id="3_4y11i"]
 [ext_resource type="Shader" path="res://global/resources/shaders/color_space_correction.gdshader" id="3_5yfru"]
+[ext_resource type="Texture2D" uid="uid://c16woiye0uogj" path="res://scenes/ui/pause_menu/assets/img/icon_pause_hover.png" id="4_d388i"]
 [ext_resource type="Script" path="res://scenes/main/canvas_texture_shader.gd" id="4_ipmgx"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_j1pi0"]
@@ -30,6 +33,22 @@ size = Vector2i(640, 360)
 size_2d_override = Vector2i(320, 180)
 size_2d_override_stretch = true
 render_target_update_mode = 4
+
+[node name="ui" type="CanvasLayer" parent="SubViewportContainer"]
+
+[node name="pause_menu" parent="SubViewportContainer/ui" instance=ExtResource("2_74uef")]
+unique_name_in_owner = true
+visible = false
+
+[node name="pause_button" type="TextureButton" parent="SubViewportContainer/ui"]
+unique_name_in_owner = true
+offset_left = 600.0
+offset_top = 8.0
+offset_right = 616.0
+offset_bottom = 24.0
+scale = Vector2(2, 2)
+texture_normal = ExtResource("3_4y11i")
+texture_hover = ExtResource("4_d388i")
 
 [node name="canvas_texture_shader" type="TextureRect" parent="."]
 visible = false
