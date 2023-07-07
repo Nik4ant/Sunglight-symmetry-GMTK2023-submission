@@ -37,10 +37,9 @@ func _physics_process(delta):
 	# TODO: add dash
 	# TODO: add level switching
 	# TODO: add sample end screen
-	# TODO: transition between levels! 
+	# TODO: transition between scenes!
 	# (there is no async switching, so this should be added)
 	# Something else?
-	# CELESTE LIKE CAMERA WITHIN A LEVEL?!
 	# Fake lights set up
 	apply_movement_x()
 	
