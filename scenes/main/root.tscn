@@ -16,10 +16,6 @@ viewport_path = NodePath("SubViewportContainer/SubViewport")
 [node name="root" type="Node2D"]
 script = ExtResource("1_yqth3")
 
-[node name="camera" type="Camera2D" parent="."]
-position = Vector2(320, 180)
-limit_smoothed = true
-
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 offset_right = 640.0
 offset_bottom = 360.0
@@ -58,13 +54,3 @@ offset_right = 640.0
 offset_bottom = 360.0
 texture = SubResource("ViewportTexture_1gduj")
 script = ExtResource("4_ipmgx")
-
-[node name="camera2" type="Camera2D" parent="."]
-process_mode = 4
-visible = false
-limit_left = 0
-limit_bottom = 360
-limit_smoothed = true
-position_smoothing_enabled = true
-rotation_smoothing_enabled = true
-editor_draw_screen = false

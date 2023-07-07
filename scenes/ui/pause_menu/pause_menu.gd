@@ -8,8 +8,7 @@ func _ready():
 	# If you can't fix the problem just ignore it...
 	# WHY window.document.fullscreenElement IS null? WTF?!?!?!?!?!?!?!?!?!?!?!?
 	if OS.has_feature("web"):
-		pass
-		# $exit_button.visible = false
+		$exit_button.visible = false
 
 func _on_play_button_pressed():
 	closed.emit()

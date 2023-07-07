@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bgn4rvtn75ojh"
-path="res://.godot/imported/player_placeholder.png-bd123b7e5a8fa8ca8913418ae89df3e1.ctex"
+uid="uid://tc1wj7jdkpyi"
+path="res://.godot/imported/level_exit.png-4465053eab5be89ebcd5b9a55fbf90ad.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/player_platformer/assets/player_placeholder.png"
-dest_files=["res://.godot/imported/player_placeholder.png-bd123b7e5a8fa8ca8913418ae89df3e1.ctex"]
+source_file="res://scenes/level_exit/level_exit.png"
+dest_files=["res://.godot/imported/level_exit.png-4465053eab5be89ebcd5b9a55fbf90ad.ctex"]
 
 [params]
 

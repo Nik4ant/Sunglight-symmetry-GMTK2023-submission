@@ -1,9 +1,7 @@
 extends CharacterBody2D
 
 @export_group("Movement params")
-@export var MAX_SPEED: float = 200
-@export var ACCELERATION_CURVE: Curve
-var acceleration_curve_offset: float = 0.0
+@export var MAX_SPEED: float = 125
 # Note: Thanks Pefeper for tutorial (https://youtu.be/IOe1aGY6hXA)
 # (I used it as a base and made a jump with variable height better)
 @export_group("Jump")
@@ -35,30 +33,53 @@ var current_coyote_frames: int = 0
 
 
 func _physics_process(delta):
-	var input_x: int = int(Input.get_action_strength("player_right") - Input.get_action_strength("player_left"))
+	# TODO: properly handle moving on top of another player
+	# TODO: add dash
+	# TODO: add level switching
+	# TODO: add sample end screen
+	# TODO: transition between levels! 
+	# (there is no async switching, so this should be added)
+	# Something else?
+	# CELESTE LIKE CAMERA WITHIN A LEVEL?!
+	# Fake lights set up
+	apply_movement_x()
+	
+	# For dash gravity + movement should be temporarly disabled
+	velocity.y += calculate_gravity() * delta
+	apply_jump()
+	
+	# Corner correction after jump (and dash?)
+	apply_corner_correction(delta, 5)
+	
+	velocity *= delta * Globals.TARGET_FPS
+	move_and_slide()
+
+
+func apply_movement_x() -> void:
+	var input_x: int = int(Input.is_action_pressed("player_right")) - int(Input.is_action_pressed("player_left"))
 	#region Movement x
 	if input_x != 0:
-		# Curve acceleration
-		acceleration_curve_offset = clampf(acceleration_curve_offset + delta, 0.0, 1.0)
-		var acceleration: float = ACCELERATION_CURVE.sample_baked(acceleration_curve_offset)
 		# Run animation
 		sprite.play("run")
-		# FIXME: Collider isn't flipped, but sprite is, but it doesn't seem like a major issue
-		sprite.flip_h = input_x < 0
-		# Update velocity
-		velocity.x = lerpf(velocity.x, MAX_SPEED, snappedf(acceleration, 0.01)) * input_x
+		# TODO: make sure collider is flipped correctly
+		if input_x < 0:
+			sprite.flip_h = true
+			$collider.scale.x *= -1
+		else:
+			$collider.scale.x = abs($collider.scale.x)
+		# Update velocity (acceleration curve is for loosers)
+		velocity.x = MAX_SPEED * input_x
 	else:
 		# No deceleration for now (aka instant deceleration)
-		acceleration_curve_offset = 0.0
 		velocity.x = 0.0
 		# Idle animation
 		sprite.animation = "idle"
 	
 	# Limit player MOVEMENT speed
-	velocity.x = clampf(velocity.x, -MAX_SPEED, MAX_SPEED)
-	#endregion
-	
-	#region Jump
+	velocity.x = clampf(velocity.x, -MAX_SPEED, MAX_SPEED) - get_platform_velocity().x
+
+
+func apply_jump() -> void:
 	var is_in_air: bool = not is_on_floor()
 	# Player is allowed to jump either while on the ground
 	# or while coyote effect is active
@@ -83,37 +104,27 @@ func _physics_process(delta):
 			current_jump_buffer_frames = jump_buffer_frames
 	
 	if was_jump_activated and can_jump:  # self explanatory...
-		velocity.y = jump_velocity
+		velocity.y += jump_velocity
 		current_coyote_frames = 0
-	
-	# NOTE: If there is gona be a dash than I'll have to make sure
-	# that I'm reducing velocity from the jump and not from the dash
 	
 	# If player is_in_air, has vertical velocity and released jump recently
 	# it means that player wants to do a smaller jump
 	# NOTE: THERE IS BUG with 4 frames window: If player presses the jump while in air
 	# --> releases it before hitting the ground and while jump buffer is still active,
-	# character will jump with full jump velocity 
+	# character will jump with full jump velocity (this is my guess at least)
 	# Quick fix --> (multiply end velocity.y in this case by 0.5)
 	if Input.is_action_just_released("player_jump"):
 		# Jump velocity will be lowered depending on 
 		# how much time passed since player jumped
 		if frames_in_air_counter != 0 and frames_in_air_counter < frames_before_full_jump:
 			velocity.y *= clampf(float(frames_in_air_counter) / frames_before_full_jump, 0.5, 1.0)
-		elif is_in_air and current_jump_buffer_frames != 0:
+		# o_0
+		# NOTE: This sort of a fix...Now there is a 1 frame window
+		elif was_jump_activated:
 			velocity.y *= 0.5
-	
-	velocity.y += calculate_gravity(velocity.y) * delta  # gravity
-	#endregion
-	
-	# Corner correction after jump (and dash?)
-	apply_corner_correction(delta, 5)
-	
-	velocity *= delta * Globals.TARGET_FPS
-	move_and_slide()
 
 
-func calculate_gravity(current_y_velocity: float) -> float:
+func calculate_gravity() -> float:
 	var assist_multiplier: float = 1.0
 	# Calculate assist
 	if Input.is_action_pressed("player_down"):
@@ -121,7 +132,7 @@ func calculate_gravity(current_y_velocity: float) -> float:
 	elif Input.is_action_pressed("player_up"):
 		assist_multiplier = gravity_assist.get("player_up", 1.0)
 	# Return actual gravity
-	if current_y_velocity < 0:
+	if velocity.y < 0:
 		return jump_gravity * assist_multiplier
 	return fall_gravity * assist_multiplier
 

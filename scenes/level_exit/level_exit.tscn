@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://dgjp18xdvg7h0"]
+
+[ext_resource type="Texture2D" uid="uid://tc1wj7jdkpyi" path="res://scenes/level_exit/level_exit.png" id="1_gu1x4"]
+[ext_resource type="Script" path="res://scenes/level_exit/level_exit.gd" id="1_ns82f"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_b4lif"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_gu1x4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oo8lj"]
+size = Vector2(14, 15)
+
+[node name="level_exit" type="Area2D"]
+script = ExtResource("1_ns82f")
+
+[node name="sprite" type="AnimatedSprite2D" parent="."]
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_b4lif")
+
+[node name="collider" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1.5)
+shape = SubResource("RectangleShape2D_oo8lj")
