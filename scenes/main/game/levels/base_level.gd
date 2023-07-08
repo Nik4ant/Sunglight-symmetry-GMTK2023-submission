@@ -3,7 +3,7 @@ class_name Level
 
 signal level_finished(next_level: Level, next_spawnpoint: Vector2)
 
-@export var level_exit: LevelExit
+@export var exit_door: Door
 # For respawn
 @export var spawnpoint_marker: Marker2D
 # Either next level or end
@@ -18,8 +18,8 @@ signal level_finished(next_level: Level, next_spawnpoint: Vector2)
 
 func _ready():
 	assert(is_instance_valid(spawnpoint_marker), "ASSERT! Forgot spawnpoint")
-	assert(is_instance_valid(level_exit), "ASSERT! Forgot level exit")
-	level_exit.player_exited.connect(_switch, CONNECT_ONE_SHOT)
+	assert(is_instance_valid(exit_door), "ASSERT! Forgot exit door")
+	exit_door.player_exited.connect(_switch, CONNECT_ONE_SHOT)
 
 func _switch():
 	if is_last_level:

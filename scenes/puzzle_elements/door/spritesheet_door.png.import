@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://suj0tikwk16v"
-path="res://.godot/imported/player_placeholder_3.png-8b31c835ab4c1612896db137aba1ab3e.ctex"
+uid="uid://miqg6e1jcmn0"
+path="res://.godot/imported/spritesheet_door.png-8a135e73e30bc41a0dea573affd1f4f8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/player_platformer/assets/player_placeholder_3.png"
-dest_files=["res://.godot/imported/player_placeholder_3.png-8b31c835ab4c1612896db137aba1ab3e.ctex"]
+source_file="res://scenes/puzzle_elements/door/spritesheet_door.png"
+dest_files=["res://.godot/imported/spritesheet_door.png-8a135e73e30bc41a0dea573affd1f4f8.ctex"]
 
 [params]
 

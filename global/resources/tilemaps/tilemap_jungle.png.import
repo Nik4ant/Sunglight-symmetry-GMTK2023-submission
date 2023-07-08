@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://6vn3lj5y5yhp"
-path="res://.godot/imported/player_placeholder.png-c01324937aae02230e05cfe284c9f1c3.ctex"
+uid="uid://bgasdedxr1j2t"
+path="res://.godot/imported/tilemap_jungle.png-d4c5e449eb281607bf61756e1e730a61.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/player_topdown/assets/player_placeholder.png"
-dest_files=["res://.godot/imported/player_placeholder.png-c01324937aae02230e05cfe284c9f1c3.ctex"]
+source_file="res://global/resources/tilemaps/tilemap_jungle.png"
+dest_files=["res://.godot/imported/tilemap_jungle.png-d4c5e449eb281607bf61756e1e730a61.ctex"]
 
 [params]
 

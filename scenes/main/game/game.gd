@@ -3,7 +3,7 @@ extends Node2D
 @onready var current_level_container: Node2D = %current_level
 var current_level: Level
 
-@onready var player: PlayerPlatformer = %player_platformer
+@onready var player: Player = %player
 var latest_spawnpoint: Vector2
 
 

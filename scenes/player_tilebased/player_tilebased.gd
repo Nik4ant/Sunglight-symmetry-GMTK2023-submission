@@ -1,4 +1,5 @@
 extends AnimatableBody2D
+class_name Player
 
 @export var tile_size: int = 16
 
