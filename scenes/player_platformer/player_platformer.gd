@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name PlayerPlatformer
 
 @export_group("Movement params")
 @export var MAX_SPEED: float = 125
@@ -33,6 +34,11 @@ var current_coyote_frames: int = 0
 
 
 func _physics_process(delta):
+	# SUPER TODO:
+	# SCREEN SHAKE!
+	# import control icons arrows + spacebar (with text: "space")
+	# NOTE: ^^ import xbox icons only if controller works in web
+	
 	# TODO: properly handle moving on top of another player
 	# TODO: add dash
 	# TODO: add level switching

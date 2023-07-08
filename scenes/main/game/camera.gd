@@ -10,6 +10,7 @@ var current_offset: Vector2 = Vector2.ZERO
 
 var is_transitioning: bool = false
 
+
 func _process(_delta):
 	var new_offset: Vector2 = _round_vector2(target.global_position / Globals.SCREEN_SIZE)
 	if not current_offset.is_equal_approx(new_offset) and not is_transitioning:
