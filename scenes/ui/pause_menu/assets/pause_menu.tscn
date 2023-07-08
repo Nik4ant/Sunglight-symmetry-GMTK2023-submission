@@ -5,14 +5,14 @@
 [ext_resource type="Texture2D" uid="uid://b0f6oqu2u7e5l" path="res://scenes/ui/pause_menu/assets/img/icon_exit.png" id="2_ftl0y"]
 [ext_resource type="Texture2D" uid="uid://4iqxi4lov6c8" path="res://scenes/ui/pause_menu/assets/img/icon_play_hover.png" id="2_o1ycw"]
 [ext_resource type="Texture2D" uid="uid://4gvo0sl1b24g" path="res://scenes/ui/pause_menu/assets/img/slider_grabber_default.png" id="3_xncdn"]
+[ext_resource type="FontFile" uid="uid://cbyo2r83k0nld" path="res://global/resources/fonts/Baskic8-Bold.otf" id="4_3aqb0"]
 [ext_resource type="Texture2D" uid="uid://bjemxwj3w78qd" path="res://scenes/ui/pause_menu/assets/img/slider_grabber_selected.png" id="4_setcr"]
-[ext_resource type="FontFile" uid="uid://xt3367pemlf5" path="res://global/resources/fonts/Ordin.otf" id="4_xdbfa"]
 [ext_resource type="Texture2D" uid="uid://c08mwvqpbowik" path="res://scenes/ui/pause_menu/assets/img/slider.png" id="5_jv1bc"]
 [ext_resource type="Script" path="res://scenes/ui/pause_menu/audio_slider.gd" id="6_ex4g8"]
 [ext_resource type="Texture2D" uid="uid://bgrfyu4sq0rr2" path="res://scenes/ui/pause_menu/assets/img/icon_exit_hover.png" id="8_iurou"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_rh01w"]
-font = ExtResource("4_xdbfa")
+font = ExtResource("4_3aqb0")
 font_size = 32
 outline_color = Color(0, 0, 0, 1)
 shadow_size = 0
@@ -68,9 +68,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -75.0
-offset_top = -57.0
+offset_top = -51.0
 offset_right = 79.0
-offset_bottom = 2.0
+offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Music
@@ -112,9 +112,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -45.0
-offset_top = 10.0
+offset_top = 16.0
 offset_right = 50.0
-offset_bottom = 69.0
+offset_bottom = 75.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Sfx"

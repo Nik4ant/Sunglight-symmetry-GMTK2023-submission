@@ -12,14 +12,16 @@ signal level_finished(next_level: Level, next_spawnpoint: Vector2)
 ## If true next_scene_path won't be treated as Level class
 @export var is_last_level: bool = false
 
-# TODO: try ResourceLoader later
+# TODO: try ResourceLoader later. 
+# UPD: nope :)
 @onready var next_scene: PackedScene = load(next_scene_path)
 
 
 func _ready():
 	assert(is_instance_valid(spawnpoint_marker), "ASSERT! Forgot spawnpoint")
 	assert(is_instance_valid(exit_door), "ASSERT! Forgot exit door")
-	exit_door.player_exited.connect(_switch, CONNECT_ONE_SHOT)
+	
+	exit_door.player_exited.connect(_switch)
 
 func _switch():
 	if is_last_level:
@@ -30,4 +32,4 @@ func _switch():
 		var next_level: Level = next_scene.instantiate() as Level
 		# For [whatever] reason global_position is just (0, 0) 
 		# while position has the actual value
-		level_finished.emit(next_level, next_level.spawnpoint_marker.position)
+		level_finished.emit(next_scene, next_level, next_level.spawnpoint_marker.position)

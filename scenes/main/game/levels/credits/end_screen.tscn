@@ -26,7 +26,5 @@ grow_vertical = 2
 text = "NEVER GONA GIVE YOU UP!
 NEVENR GONA LET YOU DOWN!
 NEVER GONA RUN AROUND...
-~~and sleep properly, send help somebody~~
-^^
-just kidding (~~*Not really*~~)"
+(end screen for testing purposes)"
 label_settings = SubResource("LabelSettings_gbito")

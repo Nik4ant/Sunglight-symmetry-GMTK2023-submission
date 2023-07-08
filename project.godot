@@ -23,6 +23,7 @@ driver/mix_rate.web=44100
 [autoload]
 
 Globals="*res://global/autoloads/globals.gd"
+EventBus="*res://global/autoloads/event_bus.gd"
 
 [display]
 

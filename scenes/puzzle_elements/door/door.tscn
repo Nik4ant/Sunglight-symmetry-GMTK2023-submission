@@ -124,7 +124,7 @@ shape = SubResource("RectangleShape2D_bpqxc")
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
 sprite_frames = SubResource("SpriteFrames_j58w4")
-animation = &"default_opened"
+animation = &"default_closed"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="animation_looped" from="sprite" to="." method="_on_sprite_animation_looped"]

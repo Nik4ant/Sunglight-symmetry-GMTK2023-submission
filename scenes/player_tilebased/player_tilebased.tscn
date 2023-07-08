@@ -1,9 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://b63ipnrxe6gs"]
+[gd_scene load_steps=7 format=3 uid="uid://b63ipnrxe6gs"]
 
 [ext_resource type="Script" path="res://scenes/player_tilebased/player_tilebased.gd" id="1_iip0u"]
 [ext_resource type="Texture2D" uid="uid://bxbt56jppbhyv" path="res://scenes/player_tilebased/assets/player.png" id="2_mhwcb"]
+[ext_resource type="Texture2D" uid="uid://yvwcsnu00jyk" path="res://scenes/player_tilebased/assets/reverse_area.png" id="3_c4vok"]
+[ext_resource type="Script" path="res://scenes/player_tilebased/reverse_area.gd" id="3_lka3i"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_foavp"]
+size = Vector2(14, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oiwvj"]
 size = Vector2(14, 14)
 
 [node name="player_tilebased" type="AnimatableBody2D"]
@@ -11,13 +16,27 @@ collision_layer = 3
 script = ExtResource("1_iip0u")
 
 [node name="sprite" type="Sprite2D" parent="."]
+unique_name_in_owner = true
 texture = ExtResource("2_mhwcb")
 
 [node name="collider" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_foavp")
 
-[node name="hitbox" type="Area2D" parent="."]
+[node name="hitbox" type="Area2D" parent="." groups=["player_hitbox"]]
 collision_layer = 2
 collision_mask = 2
 
 [node name="hitbox_collider" type="CollisionShape2D" parent="hitbox"]
+shape = SubResource("RectangleShape2D_oiwvj")
+
+[node name="reverse_area" type="Area2D" parent="."]
+script = ExtResource("3_lka3i")
+
+[node name="reverse_area_polygon" type="CollisionPolygon2D" parent="reverse_area"]
+polygon = PackedVector2Array(-8, -8, 8, -8, 24, 24, 24, -24, -24, -24, -24, 24, 24, 24, 8, -8, 8, 8, -8, 8)
+
+[node name="reverse_area_sprite" type="Sprite2D" parent="reverse_area"]
+texture = ExtResource("3_c4vok")
+
+[connection signal="body_shape_entered" from="hitbox" to="." method="_on_hitbox_body_shape_entered"]
+[connection signal="body_shape_entered" from="reverse_area" to="reverse_area" method="_on_body_shape_entered"]
