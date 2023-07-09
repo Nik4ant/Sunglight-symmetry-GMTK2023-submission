@@ -1,0 +1,56 @@
+[gd_scene load_steps=9 format=3 uid="uid://c2iuphlr4u55l"]
+
+[ext_resource type="Texture2D" uid="uid://c46mrh7iye6t5" path="res://scenes/player_tilebased/assets/reverses_left_bar.png" id="1_nitj6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t78jt"]
+atlas = ExtResource("1_nitj6")
+region = Rect2(80, 0, 16, 102)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nf3f7"]
+atlas = ExtResource("1_nitj6")
+region = Rect2(64, 0, 16, 102)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bxodc"]
+atlas = ExtResource("1_nitj6")
+region = Rect2(48, 0, 16, 102)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mxmtf"]
+atlas = ExtResource("1_nitj6")
+region = Rect2(32, 0, 16, 102)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q7khy"]
+atlas = ExtResource("1_nitj6")
+region = Rect2(16, 0, 16, 102)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3lae0"]
+atlas = ExtResource("1_nitj6")
+region = Rect2(0, 0, 16, 102)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_la8a2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t78jt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nf3f7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bxodc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mxmtf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q7khy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3lae0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.0
+}]
+
+[node name="reverses_bar" type="AnimatedSprite2D" groups=["reverse_bar"]]
+sprite_frames = SubResource("SpriteFrames_la8a2")

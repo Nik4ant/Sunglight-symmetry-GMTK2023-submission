@@ -23,8 +23,7 @@ offset_right = 174.5
 offset_bottom = 78.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "NEVER GONA GIVE YOU UP!
-NEVENR GONA LET YOU DOWN!
-NEVER GONA RUN AROUND...
-(end screen for testing purposes)"
+text = "Plot twist - doors doesn't have a collider yet
+Why?....Yes.....
+(UPD: Not anymore...Hopefully)"
 label_settings = SubResource("LabelSettings_gbito")

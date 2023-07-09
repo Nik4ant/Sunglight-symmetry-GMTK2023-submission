@@ -3,9 +3,6 @@
 [ext_resource type="Script" path="res://scenes/puzzle_elements/button/button.gd" id="1_fp8vl"]
 [ext_resource type="Texture2D" uid="uid://b40jc1msnf2ia" path="res://scenes/puzzle_elements/button/spritesheet_buttons.png" id="2_uky0c"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_pfucq"]
-size = Vector2(16, 16)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_xwrfu"]
 atlas = ExtResource("2_uky0c")
 region = Rect2(16, 0, 16, 16)
@@ -33,15 +30,18 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="button" type="Area2D"]
-collision_layer = 2
-collision_mask = 2
-script = ExtResource("1_fp8vl")
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pfucq"]
+size = Vector2(14, 14)
 
-[node name="collider" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_pfucq")
+[node name="button" type="Area2D"]
+collision_layer = 6
+collision_mask = 6
+script = ExtResource("1_fp8vl")
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_nsg3v")
+
+[node name="collider" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_pfucq")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

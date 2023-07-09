@@ -1,0 +1,9 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://brssmdda81p1s"]
+
+[ext_resource type="FontFile" uid="uid://brqtu1tfldmpn" path="res://global/resources/fonts/DigitalDisco.ttf" id="1_kykra"]
+
+[resource]
+font = ExtResource("1_kykra")
+font_size = 32
+font_color = Color(0.596078, 0.745098, 0.215686, 1)
+shadow_size = 0

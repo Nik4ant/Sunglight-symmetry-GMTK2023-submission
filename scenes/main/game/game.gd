@@ -12,6 +12,9 @@ var current_level_scene: PackedScene
 
 @onready var player: Player = %player
 var latest_spawnpoint: Vector2
+# Door info
+@onready var green_buttons_info: Label = %green_buttons_info
+@onready var blue_buttons_info: Label = %blue_buttons_info
 
 
 func _ready():
@@ -38,24 +41,42 @@ func _process(_delta):
 		togle_pause(not is_pause_menu_opened)
 
 func reset_current_level():
+	player.update_reverses(current_level.reverses_for_level)
 	player.global_position = latest_spawnpoint
 	# This is stupid but it works...
 	if current_level_scene:
-		current_level_container.remove_child(current_level)
-		current_level = current_level_scene.instantiate()
-		current_level_container.call_deferred("add_child", current_level)
+		# PLEASE WORK! PLEASE! AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+		# YEEEEEEEEEEEEEEEEEEEEEES! IT WORKS! I CAN GO SLEEP NOW!
+		switch_level_to(current_level_scene, current_level_scene.instantiate(), latest_spawnpoint)
+#		current_level_container.remove_child(current_level)
+#		await get_tree().physics_frame
+#		current_level.queue_free()
+#		await get_tree().physics_frame
+#		current_level = current_level_scene.instantiate()
+#		await get_tree().physics_frame
+#		current_level_container.call_deferred("add_child", current_level)
 
 
 func switch_level_to(source_scene: PackedScene, new_level: Level, new_spawnpoint: Vector2) -> void:
-	current_level_scene = source_scene
+	current_level_scene = source_scene.duplicate()
 	# Player pos
 	latest_spawnpoint = new_spawnpoint
 	player.global_position = new_spawnpoint
+	player.update_reverses(new_level.reverses_for_level)
 	
 	player.set_physics_process(false)
 	# Switch levels
 	for child in current_level_container.get_children():
 		child.queue_free()
+	# Buttons
+	green_buttons_info.text = "0/" + str(new_level.exit_door.required_green_buttons)
+	blue_buttons_info.text = "0/" + str(new_level.exit_door.required_blue_buttons)
+	
+	new_level.exit_door.buttons_updated.connect(
+		func(new_green: int, new_blue: int):
+			green_buttons_info.text[0] = str(new_green)
+			blue_buttons_info.text[0] = str(new_blue)
+	)
 	
 	current_level = new_level
 	current_level.level_finished.connect(switch_level_to, CONNECT_ONE_SHOT)

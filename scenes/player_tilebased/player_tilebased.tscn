@@ -1,15 +1,20 @@
-[gd_scene load_steps=7 format=3 uid="uid://b63ipnrxe6gs"]
+[gd_scene load_steps=10 format=3 uid="uid://b63ipnrxe6gs"]
 
 [ext_resource type="Script" path="res://scenes/player_tilebased/player_tilebased.gd" id="1_iip0u"]
 [ext_resource type="Texture2D" uid="uid://bxbt56jppbhyv" path="res://scenes/player_tilebased/assets/player.png" id="2_mhwcb"]
 [ext_resource type="Texture2D" uid="uid://yvwcsnu00jyk" path="res://scenes/player_tilebased/assets/reverse_area.png" id="3_c4vok"]
 [ext_resource type="Script" path="res://scenes/player_tilebased/reverse_area.gd" id="3_lka3i"]
+[ext_resource type="AudioStream" uid="uid://ddtxsurpmfwha" path="res://scenes/player_tilebased/assets/sfx/Spike_to_Void_2.wav" id="4_grt78"]
+[ext_resource type="AudioStream" uid="uid://c7cg3iep5adn6" path="res://scenes/player_tilebased/assets/sfx/Wood_to_Spikes_2.wav" id="5_esvfe"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_foavp"]
 size = Vector2(14, 14)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oiwvj"]
 size = Vector2(14, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rmnd6"]
+size = Vector2(48, 48)
 
 [node name="player_tilebased" type="AnimatableBody2D"]
 collision_layer = 3
@@ -30,13 +35,31 @@ collision_mask = 2
 shape = SubResource("RectangleShape2D_oiwvj")
 
 [node name="reverse_area" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 4
+collision_mask = 4
 script = ExtResource("3_lka3i")
 
-[node name="reverse_area_polygon" type="CollisionPolygon2D" parent="reverse_area"]
-polygon = PackedVector2Array(-8, -8, 8, -8, 24, 24, 24, -24, -24, -24, -24, 24, 24, 24, 8, -8, 8, 8, -8, 8)
+[node name="audio" type="Node" parent="reverse_area"]
+
+[node name="spikes_to_void" type="AudioStreamPlayer" parent="reverse_area/audio"]
+unique_name_in_owner = true
+stream = ExtResource("4_grt78")
+bus = &"sfx"
+
+[node name="wood_to_spikes" type="AudioStreamPlayer" parent="reverse_area/audio"]
+unique_name_in_owner = true
+stream = ExtResource("5_esvfe")
+volume_db = 3.0
+bus = &"sfx"
 
 [node name="reverse_area_sprite" type="Sprite2D" parent="reverse_area"]
 texture = ExtResource("3_c4vok")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="reverse_area"]
+shape = SubResource("RectangleShape2D_rmnd6")
+debug_color = Color(0.117647, 0.647059, 0, 0.419608)
+
 [connection signal="body_shape_entered" from="hitbox" to="." method="_on_hitbox_body_shape_entered"]
+[connection signal="area_entered" from="reverse_area" to="reverse_area" method="_on_area_entered"]
 [connection signal="body_shape_entered" from="reverse_area" to="reverse_area" method="_on_body_shape_entered"]

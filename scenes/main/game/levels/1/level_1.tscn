@@ -5,11 +5,11 @@
 [ext_resource type="PackedScene" uid="uid://d1dsixkn3xliu" path="res://scenes/puzzle_elements/button/button.tscn" id="3_23eb6"]
 [ext_resource type="Texture2D" uid="uid://dnhq23sdcqmws" path="res://global/resources/img/xbox_rb.png" id="5_0jokq"]
 [ext_resource type="PackedScene" uid="uid://dm8e3kovxpvao" path="res://scenes/puzzle_elements/door/door.tscn" id="6_g3fbw"]
-[ext_resource type="FontFile" uid="uid://bh5qh12ieux1o" path="res://global/resources/fonts/pixel_perfect.ttf" id="6_uix5o"]
+[ext_resource type="FontFile" uid="uid://brqtu1tfldmpn" path="res://global/resources/fonts/DigitalDisco.ttf" id="6_ne44y"]
 [ext_resource type="Texture2D" uid="uid://d18ht7a44hm8m" path="res://global/resources/img/key_r.png" id="7_qk0lf"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_68jyy"]
-font = ExtResource("6_uix5o")
+font = ExtResource("6_ne44y")
 
 [node name="level_1" type="Node2D" node_paths=PackedStringArray("exit_door", "spawnpoint_marker")]
 script = ExtResource("1_u25f3")
@@ -39,6 +39,7 @@ position = Vector2(200, 152)
 
 [node name="door" parent="." node_paths=PackedStringArray("buttons_for_activation") instance=ExtResource("6_g3fbw")]
 position = Vector2(216, 72)
+required_green_buttons = 1
 buttons_for_activation = [NodePath("../button")]
 
 [node name="restart_ui_hint" type="Node2D" parent="."]
@@ -46,17 +47,17 @@ modulate = Color(1, 1, 1, 0.666667)
 position = Vector2(0, 2)
 
 [node name="XboxRb" type="Sprite2D" parent="restart_ui_hint"]
-position = Vector2(264, 169)
+position = Vector2(264, 174)
 texture = ExtResource("5_0jokq")
 
 [node name="restart" type="Label" parent="restart_ui_hint"]
-offset_left = 216.0
-offset_top = 180.0
-offset_right = 284.0
+offset_left = 224.0
+offset_top = 184.0
+offset_right = 275.0
 offset_bottom = 203.0
 text = "Restart"
 label_settings = SubResource("LabelSettings_68jyy")
 
 [node name="KeyR" type="Sprite2D" parent="restart_ui_hint"]
-position = Vector2(224, 175)
+position = Vector2(232, 174)
 texture = ExtResource("7_qk0lf")

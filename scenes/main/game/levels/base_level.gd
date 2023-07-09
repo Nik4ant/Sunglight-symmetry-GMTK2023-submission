@@ -6,6 +6,7 @@ signal level_finished(next_level: Level, next_spawnpoint: Vector2)
 @export var exit_door: Door
 # For respawn
 @export var spawnpoint_marker: Marker2D
+@export var reverses_for_level: int = 0
 # Either next level or end
 ## Path to the next scene
 @export_file("*.tscn") var next_scene_path: String
