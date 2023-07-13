@@ -1,14 +1,20 @@
 extends AnimatableBody2D
 class_name Player
 
+@export var movement_delay_ms: float = 170.0
+var last_movement_time: float = 0.0
 @export var tile_size: int = 16
-@onready var sprite: Sprite2D = %sprite
+@onready var sprite: AnimatedSprite2D = %sprite
 
 @onready var reverse_area: ReverseArea = %reverse_area as ReverseArea
 var reverses_left: int = 0
-@export var reverse_area_duration: float = 0.5
+@export var reverse_area_duration: float = 0.3
 
 @onready var reverse_bar: AnimatedSprite2D = get_tree().get_first_node_in_group("reverse_bar")
+# SFX
+var is_dead: bool = false
+@onready var death_sounds: Array = %death_sfx_list.get_children()
+@onready var death_by_arrow: AudioStreamPlayer = %death_by_arrow
 
 
 func update_reverses(new_value: int, force: bool = false):
@@ -17,6 +23,8 @@ func update_reverses(new_value: int, force: bool = false):
 		reverse_bar.frame = mini(new_value, 5)
 
 func _physics_process(_delta):
+	if is_dead:
+		return
 	# Restart
 	if Input.is_action_just_pressed("player_restrart"):
 		_death()
@@ -32,24 +40,51 @@ func _physics_process(_delta):
 					reverse_area.set_active_state(false)
 		)
 	
+	
 	var input: Vector2 = Vector2(
-		int(Input.is_action_just_pressed("player_right")) - int(Input.is_action_just_pressed("player_left")),
-		int(Input.is_action_just_pressed("player_down")) - int(Input.is_action_just_pressed("player_up")),
+		int(Input.is_action_pressed("player_right")) - int(Input.is_action_pressed("player_left")),
+		int(Input.is_action_pressed("player_down")) - int(Input.is_action_pressed("player_up")),
 	)
 	
-	if input != Vector2.ZERO:
-		reverse_area.set_active_state(false)
-		
+	if input != Vector2.ZERO and not reverse_area.is_active:
 		sprite.flip_h = input.x < 0 or (sprite.flip_h and input.x == 0)
 		var offset: Vector2 = input * tile_size
 		
 		if not test_move(global_transform, offset):
-			global_position += offset
+			var current_time = Time.get_ticks_msec()
+			if current_time - last_movement_time >= movement_delay_ms:
+				last_movement_time = current_time
+				global_position += offset
 
 
-func _death():
-	# TODO: animation + sound
+func move():
+	pass
+
+
+# Hopefully used by arrow shooter...
+func die_by_arrow():
+	_death(true)
+
+
+func _death(killed_by_arrow: bool = false):
+	if is_dead:
+		return
+	
+	self.set_physics_process(false)
+	is_dead = true
+	
+	if not killed_by_arrow:
+		Globals.play_sound(death_sounds.pick_random(), 0.9, 1.1)
+	else:
+		Globals.play_sound(death_by_arrow, 0.9, 1.1)
+	
+	sprite.play("death")
+	await sprite.animation_looped
+	sprite.animation = "default"
+	
 	EventBus.player_died.emit()
+	
+	get_tree().create_timer(0.2).timeout.connect(func(): is_dead = false)
 
 
 func _on_hitbox_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int):

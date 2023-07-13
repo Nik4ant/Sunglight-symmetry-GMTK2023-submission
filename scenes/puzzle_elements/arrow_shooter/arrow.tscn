@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://bfe6chixqa02f"]
+
+[ext_resource type="Texture2D" uid="uid://bayxid5w5jhpq" path="res://scenes/puzzle_elements/arrow_shooter/arrows.png" id="1_esa8m"]
+[ext_resource type="Script" path="res://scenes/puzzle_elements/arrow_shooter/arrow.gd" id="1_v3wsc"]
+[ext_resource type="Texture2D" uid="uid://leuwfybulmv6" path="res://scenes/puzzle_elements/arrow_shooter/heart.png" id="3_edu3o"]
+[ext_resource type="AudioStream" uid="uid://clb7ehlmcani8" path="res://scenes/puzzle_elements/arrow_shooter/heart_goes_br.wav" id="4_ir5de"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i8ll0"]
+size = Vector2(14, 14)
+
+[node name="arrow" type="Area2D"]
+collision_layer = 6
+collision_mask = 7
+script = ExtResource("1_v3wsc")
+
+[node name="sprite_default" type="Sprite2D" parent="."]
+texture = ExtResource("1_esa8m")
+
+[node name="sprite_reversed" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("3_edu3o")
+
+[node name="collider" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_i8ll0")
+
+[node name="heart_go_br" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_ir5de")
+volume_db = 12.0
+bus = &"sfx"
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]

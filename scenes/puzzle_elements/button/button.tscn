@@ -1,15 +1,24 @@
-[gd_scene load_steps=7 format=3 uid="uid://d1dsixkn3xliu"]
+[gd_scene load_steps=10 format=3 uid="uid://d1dsixkn3xliu"]
 
 [ext_resource type="Script" path="res://scenes/puzzle_elements/button/button.gd" id="1_fp8vl"]
 [ext_resource type="Texture2D" uid="uid://b40jc1msnf2ia" path="res://scenes/puzzle_elements/button/spritesheet_buttons.png" id="2_uky0c"]
+[ext_resource type="AudioStream" uid="uid://dvy8m56tewvfl" path="res://scenes/puzzle_elements/button/Footsteps_1.wav" id="3_wpibk"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xwrfu"]
 atlas = ExtResource("2_uky0c")
 region = Rect2(16, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_7ckhj"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_co7ps"]
 atlas = ExtResource("2_uky0c")
 region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_78sbx"]
+atlas = ExtResource("2_uky0c")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ktdpb"]
+atlas = ExtResource("2_uky0c")
+region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_nsg3v"]
 animations = [{
@@ -23,10 +32,26 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_7ckhj")
+"texture": SubResource("AtlasTexture_co7ps")
 }],
 "loop": true,
-"name": &"reversed_default",
+"name": &"pressed_default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_78sbx")
+}],
+"loop": true,
+"name": &"pressed_reversed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ktdpb")
+}],
+"loop": true,
+"name": &"reversed",
 "speed": 5.0
 }]
 
@@ -43,5 +68,10 @@ sprite_frames = SubResource("SpriteFrames_nsg3v")
 
 [node name="collider" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_pfucq")
+
+[node name="activation_sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_wpibk")
+volume_db = 2.0
+bus = &"sfx"
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

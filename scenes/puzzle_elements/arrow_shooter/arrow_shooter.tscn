@@ -1,0 +1,54 @@
+[gd_scene load_steps=9 format=3 uid="uid://c8cmk0g5rbvdf"]
+
+[ext_resource type="Texture2D" uid="uid://d042u7ripefd0" path="res://scenes/puzzle_elements/door/just_trust_me.png" id="1_l1a6p"]
+[ext_resource type="Script" path="res://scenes/puzzle_elements/arrow_shooter/arrow_shooter.gd" id="1_rhbja"]
+[ext_resource type="Texture2D" uid="uid://cj5nkudqytu3n" path="res://scenes/puzzle_elements/arrow_shooter/trap_arrows.png" id="1_rtlgr"]
+[ext_resource type="AudioStream" uid="uid://bjx18d5tckhpa" path="res://scenes/puzzle_elements/arrow_shooter/Arrow_shooter_fire_1.wav" id="4_2ac5m"]
+[ext_resource type="AudioStream" uid="uid://blxlnv6s11hub" path="res://scenes/puzzle_elements/arrow_shooter/Arrow_shooter_fire_2.wav" id="5_w0khb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vkfkx"]
+size = Vector2(14, 14)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5nc43"]
+texture = ExtResource("1_l1a6p")
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="TileSet" id="TileSet_gbi5v"]
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_5nc43")
+
+[node name="arrow_shooter" type="Area2D" groups=["PLEASE_HELP"]]
+collision_layer = 5
+collision_mask = 5
+script = ExtResource("1_rhbja")
+
+[node name="collider" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_vkfkx")
+
+[node name="EightHoursLeftHolyShit" type="TileMap" parent="." groups=["PLEASE_HELP"]]
+visible = false
+position = Vector2(-8, 8)
+tile_set = SubResource("TileSet_gbi5v")
+format = 2
+layer_0/tile_data = PackedInt32Array(-65536, 0, 0)
+
+[node name="sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_rtlgr")
+
+[node name="arrow_spawnpoint" type="Marker2D" parent="."]
+position = Vector2(0, 17)
+
+[node name="shoot_sfx" type="Node" parent="."]
+
+[node name="fire_1" type="AudioStreamPlayer" parent="shoot_sfx"]
+stream = ExtResource("4_2ac5m")
+volume_db = 12.0
+bus = &"sfx"
+
+[node name="fire_2" type="AudioStreamPlayer" parent="shoot_sfx"]
+stream = ExtResource("5_w0khb")
+volume_db = 12.0
+bus = &"sfx"

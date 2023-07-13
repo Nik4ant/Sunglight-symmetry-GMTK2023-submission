@@ -34,11 +34,43 @@ func _ready():
 	# Respawn
 	latest_spawnpoint = player.global_position
 	EventBus.player_died.connect(reset_current_level)
+	# Early game
+	EventBus.reverse_mechanic_revealed.connect(
+		func():
+			Globals.fade_in([$ui/reverses_bar, $ui/reverse_table/spike_to_void, $ui/reverse_table/wood_to_spike])
+	, CONNECT_ONE_SHOT)
+	EventBus.button_reverse_revealed.connect(
+		func():
+			Globals.fade_in([$ui/reverse_table/green_to_blue])
+	, CONNECT_ONE_SHOT)
+	# Endgame
+	EventBus.late_game_activated.connect(
+		func():
+			$late_game_transition.visible = true
+			# Transition music as well
+			var tween = create_tween()
+			tween.tween_property($bg_music, "volume_db", -20.0, 1.0)
+			tween.play()
+			await tween.finished
+			tween.stop()
+			
+			# Reverse table part
+			Globals.fade_in([$ui/reverse_table/arrow_shooter, $ui/reverse_table/arrows_to_heart])
+			
+			var wtf_tween = create_tween()
+			$bg_music.stop()
+			$bg_music.stream = preload("res://scenes/main/game/assets/audio/music/Track_2.mp3")
+			$bg_music.play()
+			wtf_tween.tween_property($bg_music, "volume_db", 1.5, 2.5)
+			wtf_tween.play()
+	
+	, CONNECT_ONE_SHOT)
 
 
 func _process(_delta):
 	if Input.is_action_just_pressed("player_menu"):
 		togle_pause(not is_pause_menu_opened)
+
 
 func reset_current_level():
 	player.update_reverses(current_level.reverses_for_level)
@@ -55,6 +87,7 @@ func reset_current_level():
 #		current_level = current_level_scene.instantiate()
 #		await get_tree().physics_frame
 #		current_level_container.call_deferred("add_child", current_level)
+	player.call_deferred("set_physics_process", true)
 
 
 func switch_level_to(source_scene: PackedScene, new_level: Level, new_spawnpoint: Vector2) -> void:

@@ -1,21 +1,12 @@
-[gd_scene load_steps=22 format=3 uid="uid://dm8e3kovxpvao"]
+[gd_scene load_steps=20 format=3 uid="uid://dm8e3kovxpvao"]
 
 [ext_resource type="Script" path="res://scenes/puzzle_elements/door/door.gd" id="1_5x43x"]
 [ext_resource type="Texture2D" uid="uid://miqg6e1jcmn0" path="res://scenes/puzzle_elements/door/spritesheet_door.png" id="1_12bh3"]
-[ext_resource type="Texture2D" uid="uid://d042u7ripefd0" path="res://scenes/puzzle_elements/door/just_trust_me.png" id="2_mqjgo"]
-[ext_resource type="AudioStream" uid="uid://ctl7loodp1v4r" path="res://scenes/player_tilebased/assets/sfx/Door_Opening.wav" id="3_yex7e"]
-[ext_resource type="AudioStream" uid="uid://buv4ghvy4ih7h" path="res://scenes/player_tilebased/assets/sfx/Door_Closing.wav" id="4_bfhrt"]
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5nc43"]
-texture = ExtResource("2_mqjgo")
-0:0/0 = 0
-0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-0:0/0/physics_layer_0/angular_velocity = 0.0
-0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+[ext_resource type="AudioStream" uid="uid://cxcacyjxu8bq0" path="res://scenes/puzzle_elements/door/Door_Opening.wav" id="4_u6n1f"]
+[ext_resource type="AudioStream" uid="uid://0rlkdumjae58" path="res://scenes/puzzle_elements/door/Door_Closing.wav" id="5_8yurp"]
 
 [sub_resource type="TileSet" id="TileSet_ipk04"]
 physics_layer_0/collision_layer = 1
-sources/0 = SubResource("TileSetAtlasSource_5nc43")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bpqxc"]
 size = Vector2(16, 16)
@@ -88,7 +79,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"close_animation",
-"speed": 5.0
+"speed": 4.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -124,7 +115,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"open_animation",
-"speed": 5.0
+"speed": 4.0
 }]
 
 [node name="door" type="Area2D"]
@@ -144,20 +135,20 @@ shape = SubResource("RectangleShape2D_bpqxc")
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
 sprite_frames = SubResource("SpriteFrames_j58w4")
-animation = &"default_closed"
+animation = &"close_animation"
 
 [node name="audio" type="Node" parent="."]
 
 [node name="open_sfx" type="AudioStreamPlayer" parent="audio"]
 unique_name_in_owner = true
-stream = ExtResource("3_yex7e")
-volume_db = 3.0
+stream = ExtResource("4_u6n1f")
+volume_db = 2.5
 bus = &"sfx"
 
 [node name="close_sfx" type="AudioStreamPlayer" parent="audio"]
 unique_name_in_owner = true
-stream = ExtResource("4_bfhrt")
-volume_db = 3.0
+stream = ExtResource("5_8yurp")
+volume_db = 2.0
 bus = &"sfx"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

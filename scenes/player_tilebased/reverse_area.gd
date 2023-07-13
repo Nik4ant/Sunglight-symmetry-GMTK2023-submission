@@ -20,6 +20,9 @@ const REVERSE_TABLE: Dictionary = {
 # Sfx
 @onready var spikes_to_void: AudioStreamPlayer = %spikes_to_void
 @onready var wood_to_spikes: AudioStreamPlayer = %wood_to_spikes
+@onready var green_to_blue: AudioStreamPlayer = %green_to_blue
+@onready var arrow_shooter_to: AudioStreamPlayer = %arrow_shooter_to
+
 
 func _ready():
 	set_active_state(is_active)
@@ -77,4 +80,10 @@ func _on_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, 
 
 func _on_area_entered(area: Area2D) -> void:
 	if area is PuzzleButton:
+		Globals.play_sound(green_to_blue, 0.9, 1.1)
 		(area as PuzzleButton).reverse()
+	elif area is Arrow:
+		(area as Arrow).reverse_state()
+	elif area is ArrowShooter:
+		arrow_shooter_to.play()
+		(area as ArrowShooter).reverse()

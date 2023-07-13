@@ -1,3 +1,6 @@
 extends Node
 
 signal player_died
+signal late_game_activated
+signal reverse_mechanic_revealed
+signal button_reverse_revealed

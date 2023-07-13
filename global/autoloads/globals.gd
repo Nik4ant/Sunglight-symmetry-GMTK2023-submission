@@ -18,3 +18,13 @@ func play_sound(player: AudioStreamPlayer, min_pitch: float, max_pitch: float) -
 	player.play()
 	# Reset back
 	player.set_deferred("pitch_scale", initial_pitch)
+
+
+func fade_in(items: Array[CanvasItem], duration: float = 1.0) -> void:
+	var tween = create_tween()
+	for item in items:
+		item.visible = true
+		item.modulate.a = 0.0
+		
+		tween.tween_property(item, "modulate", Color(1.0, 1.0, 1.0, 1.0), duration)
+	tween.play()

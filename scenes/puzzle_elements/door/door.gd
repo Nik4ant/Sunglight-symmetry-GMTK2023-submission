@@ -76,7 +76,7 @@ func _on_body_entered(body: Node2D):
 
 func open() -> void:
 	if not is_open:
-		open_sfx.play()
+		Globals.play_sound(open_sfx, 0.9, 1.1)
 		$IsThisDefenitionOfInsanity.set_cell(0, Vector2i(0, -1), -1)
 		is_open = true
 		self.set_collision_layer_value(1, false)
@@ -86,7 +86,7 @@ func open() -> void:
 
 func close() -> void:
 	if is_open:
-		close_sfx.play()
+		Globals.play_sound(close_sfx, 0.9, 1.1)
 		var source_id = $IsThisDefenitionOfInsanity.get_cell_source_id(0, Vector2i.ZERO)
 		$IsThisDefenitionOfInsanity.set_cell(0, Vector2i(0, -1), source_id, Vector2i.ZERO)
 		is_open = false

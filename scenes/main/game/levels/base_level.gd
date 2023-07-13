@@ -26,8 +26,13 @@ func _ready():
 
 func _switch():
 	if is_last_level:
-		self.call_deferred("queue_free")
-		# FIXME: wierd texture error
+		# var tween = create_tween()
+		# var game_node: Node2D = get_tree().root.get_child(2)
+		# tween.tween_property(game_node, "modulate", Color.BLACK, 3.0)
+		# tween.tween_property(game_node.find_child("bg_music"), "volume_db", -20.0, 1.5)
+		# tween.play()
+		# await tween.finished
+		# self.call_deferred("queue_free")
 		get_tree().change_scene_to_packed(next_scene)
 	else:
 		var next_level: Level = next_scene.instantiate() as Level

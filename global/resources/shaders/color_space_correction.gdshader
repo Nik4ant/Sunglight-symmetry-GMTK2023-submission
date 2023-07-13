@@ -23,8 +23,8 @@ void fragment() {
 	highp vec4 color = textureLod(screen_texture, SCREEN_UV, 0.0);
 	if (color.rgb != vec3(1.0, 1.0, 1.0) && color.rgb != vec3(0.0, 0.0, 0.0)) {
 		highp vec3 hsv = rgb2hsv(color.rgb);
-		hsv[1] += 0.09;
-		hsv[2] += 0.11;
+		hsv[1] += 0.08;
+		hsv[2] += 0.05;
 		COLOR.rgb = hsv2rgb(hsv);
 	}
 	else {

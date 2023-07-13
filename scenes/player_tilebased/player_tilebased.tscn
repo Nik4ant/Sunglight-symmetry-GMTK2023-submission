@@ -1,11 +1,84 @@
-[gd_scene load_steps=10 format=3 uid="uid://b63ipnrxe6gs"]
+[gd_scene load_steps=23 format=3 uid="uid://b63ipnrxe6gs"]
 
 [ext_resource type="Script" path="res://scenes/player_tilebased/player_tilebased.gd" id="1_iip0u"]
+[ext_resource type="Texture2D" uid="uid://d18nvl5f2nway" path="res://scenes/player_tilebased/assets/player_death.png" id="2_d5jqt"]
 [ext_resource type="Texture2D" uid="uid://bxbt56jppbhyv" path="res://scenes/player_tilebased/assets/player.png" id="2_mhwcb"]
 [ext_resource type="Texture2D" uid="uid://yvwcsnu00jyk" path="res://scenes/player_tilebased/assets/reverse_area.png" id="3_c4vok"]
 [ext_resource type="Script" path="res://scenes/player_tilebased/reverse_area.gd" id="3_lka3i"]
 [ext_resource type="AudioStream" uid="uid://ddtxsurpmfwha" path="res://scenes/player_tilebased/assets/sfx/Spike_to_Void_2.wav" id="4_grt78"]
-[ext_resource type="AudioStream" uid="uid://c7cg3iep5adn6" path="res://scenes/player_tilebased/assets/sfx/Wood_to_Spikes_2.wav" id="5_esvfe"]
+[ext_resource type="AudioStream" uid="uid://db0q113py7unw" path="res://scenes/player_tilebased/assets/sfx/Wood_to_Spikes.wav" id="6_457re"]
+[ext_resource type="AudioStream" uid="uid://ceaqkiwyg5jhw" path="res://scenes/player_tilebased/assets/sfx/Green_to_blue.wav" id="7_ess0x"]
+[ext_resource type="AudioStream" uid="uid://bih1jnkicbum1" path="res://scenes/player_tilebased/assets/sfx/Dead_1.wav" id="8_ed5em"]
+[ext_resource type="AudioStream" uid="uid://cjssdmygxna3q" path="res://scenes/player_tilebased/assets/sfx/reverse_arrow_shooter.wav" id="8_lrc0i"]
+[ext_resource type="AudioStream" uid="uid://ca75ar645p7fo" path="res://scenes/player_tilebased/assets/sfx/Dead_2.wav" id="9_uqhmh"]
+[ext_resource type="AudioStream" uid="uid://dhdpnnhvjwyqy" path="res://scenes/player_tilebased/assets/sfx/Dead_by_arrow.wav" id="10_70q0o"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t0ibw"]
+atlas = ExtResource("2_d5jqt")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uwtg0"]
+atlas = ExtResource("2_d5jqt")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3yj4s"]
+atlas = ExtResource("2_d5jqt")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cj5wo"]
+atlas = ExtResource("2_d5jqt")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nu4nr"]
+atlas = ExtResource("2_d5jqt")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_titjw"]
+atlas = ExtResource("2_d5jqt")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hscbm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t0ibw")
+}, {
+"duration": 1.5,
+"texture": SubResource("AtlasTexture_uwtg0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t0ibw")
+}, {
+"duration": 1.5,
+"texture": SubResource("AtlasTexture_uwtg0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3yj4s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cj5wo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nu4nr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_titjw")
+}, {
+"duration": 3.0,
+"texture": SubResource("AtlasTexture_titjw")
+}],
+"loop": true,
+"name": &"death",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_mhwcb")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_foavp"]
 size = Vector2(14, 14)
@@ -20,14 +93,16 @@ size = Vector2(48, 48)
 collision_layer = 3
 script = ExtResource("1_iip0u")
 
-[node name="sprite" type="Sprite2D" parent="."]
+[node name="sprite" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
-texture = ExtResource("2_mhwcb")
+sprite_frames = SubResource("SpriteFrames_hscbm")
 
 [node name="collider" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("RectangleShape2D_foavp")
 
 [node name="hitbox" type="Area2D" parent="." groups=["player_hitbox"]]
+visible = false
 collision_layer = 2
 collision_mask = 2
 
@@ -36,6 +111,7 @@ shape = SubResource("RectangleShape2D_oiwvj")
 
 [node name="reverse_area" type="Area2D" parent="."]
 unique_name_in_owner = true
+visible = false
 collision_layer = 4
 collision_mask = 4
 script = ExtResource("3_lka3i")
@@ -45,12 +121,26 @@ script = ExtResource("3_lka3i")
 [node name="spikes_to_void" type="AudioStreamPlayer" parent="reverse_area/audio"]
 unique_name_in_owner = true
 stream = ExtResource("4_grt78")
+volume_db = 1.0
 bus = &"sfx"
 
 [node name="wood_to_spikes" type="AudioStreamPlayer" parent="reverse_area/audio"]
 unique_name_in_owner = true
-stream = ExtResource("5_esvfe")
+stream = ExtResource("6_457re")
+volume_db = 7.0
+bus = &"sfx"
+
+[node name="green_to_blue" type="AudioStreamPlayer" parent="reverse_area/audio"]
+unique_name_in_owner = true
+stream = ExtResource("7_ess0x")
 volume_db = 3.0
+bus = &"sfx"
+
+[node name="arrow_shooter_to" type="AudioStreamPlayer" parent="reverse_area/audio"]
+unique_name_in_owner = true
+stream = ExtResource("8_lrc0i")
+volume_db = 8.0
+pitch_scale = 1.3
 bus = &"sfx"
 
 [node name="reverse_area_sprite" type="Sprite2D" parent="reverse_area"]
@@ -59,6 +149,26 @@ texture = ExtResource("3_c4vok")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="reverse_area"]
 shape = SubResource("RectangleShape2D_rmnd6")
 debug_color = Color(0.117647, 0.647059, 0, 0.419608)
+
+[node name="audio" type="Node" parent="."]
+
+[node name="death_sfx_list" type="Node" parent="audio"]
+unique_name_in_owner = true
+
+[node name="death_1" type="AudioStreamPlayer" parent="audio/death_sfx_list"]
+stream = ExtResource("8_ed5em")
+volume_db = 7.0
+bus = &"sfx"
+
+[node name="death_2" type="AudioStreamPlayer" parent="audio/death_sfx_list"]
+stream = ExtResource("9_uqhmh")
+volume_db = 7.0
+bus = &"sfx"
+
+[node name="death_by_arrow" type="AudioStreamPlayer" parent="audio"]
+unique_name_in_owner = true
+stream = ExtResource("10_70q0o")
+bus = &"sfx"
 
 [connection signal="body_shape_entered" from="hitbox" to="." method="_on_hitbox_body_shape_entered"]
 [connection signal="area_entered" from="reverse_area" to="reverse_area" method="_on_area_entered"]
