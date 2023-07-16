@@ -1,12 +1,21 @@
-[gd_scene load_steps=20 format=3 uid="uid://dm8e3kovxpvao"]
+[gd_scene load_steps=22 format=3 uid="uid://dm8e3kovxpvao"]
 
 [ext_resource type="Script" path="res://scenes/puzzle_elements/door/door.gd" id="1_5x43x"]
 [ext_resource type="Texture2D" uid="uid://miqg6e1jcmn0" path="res://scenes/puzzle_elements/door/spritesheet_door.png" id="1_12bh3"]
+[ext_resource type="Texture2D" uid="uid://d0mrj5x5g5f7x" path="res://scenes/main/game/assets/img/wooden_wall_tile.png" id="2_techq"]
 [ext_resource type="AudioStream" uid="uid://cxcacyjxu8bq0" path="res://scenes/puzzle_elements/door/Door_Opening.wav" id="4_u6n1f"]
 [ext_resource type="AudioStream" uid="uid://0rlkdumjae58" path="res://scenes/puzzle_elements/door/Door_Closing.wav" id="5_8yurp"]
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_v1lpo"]
+texture = ExtResource("2_techq")
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
 [sub_resource type="TileSet" id="TileSet_ipk04"]
 physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_v1lpo")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bpqxc"]
 size = Vector2(16, 16)
@@ -124,6 +133,7 @@ collision_mask = 3
 script = ExtResource("1_5x43x")
 
 [node name="IsThisDefenitionOfInsanity" type="TileMap" parent="."]
+visible = false
 position = Vector2(-8, 8)
 tile_set = SubResource("TileSet_ipk04")
 format = 2

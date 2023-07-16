@@ -71,6 +71,7 @@ func _on_sprite_animation_looped():
 
 func _on_body_entered(body: Node2D):
 	if is_open and body is Player:
+		body.visible = false
 		player_exited.emit()
 
 

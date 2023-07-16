@@ -59,11 +59,15 @@ func _on_door_player_exited():
 	if OS.has_feature("web"):
 		$player_tilebased.visible = false
 	var tween = create_tween()
-	tween.tween_property($CanvasModulate, "color", Color.BLACK, 5.0)
+	tween.tween_property($end_fade, "modulate", Color.WHITE, 5.0)
+	tween.tween_property($The_end, "modulate", Color.WHITE, 3.0)
 	tween.play()
 	await tween.finished
 	
-	get_tree().quit(0)
+	await get_tree().create_timer(3.0).timeout
+	
+	if not OS.has_feature("web"):
+		get_tree().quit(0)
 
 
 func _on_hint_area_body_entered(body):

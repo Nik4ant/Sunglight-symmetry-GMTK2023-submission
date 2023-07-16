@@ -26,13 +26,15 @@ func _ready():
 
 func _switch():
 	if is_last_level:
-		# var tween = create_tween()
-		# var game_node: Node2D = get_tree().root.get_child(2)
-		# tween.tween_property(game_node, "modulate", Color.BLACK, 3.0)
-		# tween.tween_property(game_node.find_child("bg_music"), "volume_db", -20.0, 1.5)
-		# tween.play()
-		# await tween.finished
-		# self.call_deferred("queue_free")
+		# NEVER EVER PUBLISH UNTESTED CODE WITH 30 SECONDS ON THE CLOCK
+		var game_node: Node2D = get_tree().root.get_child(2)
+		var rect: ColorRect = get_tree().get_first_node_in_group("transition_savior")
+		
+		var tween = create_tween()
+		tween.tween_property(rect, "modulate", Color(1.0, 1.0, 1.0, 1.0), 1.5)
+		tween.tween_property(game_node.find_child("bg_music"), "volume_db", -20.0, 1.5)
+		tween.play()
+		await tween.finished
 		get_tree().change_scene_to_packed(next_scene)
 	else:
 		var next_level: Level = next_scene.instantiate() as Level

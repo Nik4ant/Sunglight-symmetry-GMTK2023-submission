@@ -61,7 +61,7 @@ func _ready():
 			$bg_music.stop()
 			$bg_music.stream = preload("res://scenes/main/game/assets/audio/music/Track_2.mp3")
 			$bg_music.play()
-			wtf_tween.tween_property($bg_music, "volume_db", 1.5, 2.5)
+			wtf_tween.tween_property($bg_music, "volume_db", 2.0, 1.5)
 			wtf_tween.play()
 	
 	, CONNECT_ONE_SHOT)
@@ -73,13 +73,29 @@ func _process(_delta):
 
 
 func reset_current_level():
+	for button in current_level.exit_door.buttons_for_activation:
+		var btn: PuzzleButton = button as PuzzleButton
+		btn.monitorable = false
+		btn.monitoring = false
 	player.update_reverses(current_level.reverses_for_level)
 	player.global_position = latest_spawnpoint
 	# This is stupid but it works...
 	if current_level_scene:
 		# PLEASE WORK! PLEASE! AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 		# YEEEEEEEEEEEEEEEEEEEEEES! IT WORKS! I CAN GO SLEEP NOW!
-		switch_level_to(current_level_scene, current_level_scene.instantiate(), latest_spawnpoint)
+		var pseudo_new_level = current_level_scene.instantiate()
+		switch_level_to(current_level_scene, pseudo_new_level, latest_spawnpoint)
+		get_tree().create_timer(0.2).timeout.connect(
+			func():
+				# Reset all buttons to prevent any state getting carried over to 
+				# the next level (silly, but should work)
+				for button in current_level.exit_door.buttons_for_activation:
+					var btn: PuzzleButton = button as PuzzleButton
+					btn.is_activated = false
+					btn.update_anim()
+					btn.state_changed.emit(btn.is_reveresed)
+		)
+		
 #		current_level_container.remove_child(current_level)
 #		await get_tree().physics_frame
 #		current_level.queue_free()
@@ -116,6 +132,7 @@ func switch_level_to(source_scene: PackedScene, new_level: Level, new_spawnpoint
 	current_level_container.call_deferred("add_child", new_level)
 	
 	player.set_physics_process(true)
+	player.visible = true
 
 
 func togle_pause(value: bool) -> void:
