@@ -12,6 +12,7 @@ var reverses_left: int = 0
 
 @onready var reverse_bar: AnimatedSprite2D = get_tree().get_first_node_in_group("reverse_bar")
 # SFX
+var temp_fix_can_die: bool = true
 var is_dead: bool = false
 @onready var death_sounds: Array = %death_sfx_list.get_children()
 @onready var death_by_arrow: AudioStreamPlayer = %death_by_arrow
@@ -26,7 +27,7 @@ func _physics_process(_delta):
 	if is_dead:
 		return
 	# Restart
-	if Input.is_action_just_pressed("player_restrart"):
+	if Input.is_action_just_pressed("player_restrart") and temp_fix_can_die:
 		_death()
 	# Reversing
 	if Input.is_action_just_pressed("player_reverse") and reverses_left > 0:

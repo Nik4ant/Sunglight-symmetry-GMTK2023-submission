@@ -75,9 +75,10 @@ func _on_body_entered(body: Node2D):
 		player_exited.emit()
 
 
-func open() -> void:
+func open(quiet: bool = false) -> void:
 	if not is_open:
-		Globals.play_sound(open_sfx, 0.9, 1.1)
+		if not quiet:
+			Globals.play_sound(open_sfx, 0.9, 1.1)
 		$IsThisDefenitionOfInsanity.set_cell(0, Vector2i(0, -1), -1)
 		is_open = true
 		self.set_collision_layer_value(1, false)
@@ -85,9 +86,10 @@ func open() -> void:
 		sprite.play("open_animation")
 
 
-func close() -> void:
+func close(quiet: bool = false) -> void:
 	if is_open:
-		Globals.play_sound(close_sfx, 0.9, 1.1)
+		if not quiet:
+			Globals.play_sound(close_sfx, 0.9, 1.1)
 		var source_id = $IsThisDefenitionOfInsanity.get_cell_source_id(0, Vector2i.ZERO)
 		$IsThisDefenitionOfInsanity.set_cell(0, Vector2i(0, -1), source_id, Vector2i.ZERO)
 		is_open = false

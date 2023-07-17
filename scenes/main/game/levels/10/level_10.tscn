@@ -10,7 +10,7 @@
 script = ExtResource("1_5vvaw")
 exit_door = NodePath("door")
 spawnpoint_marker = NodePath("player_spawnpoint")
-reverses_for_level = 3
+reverses_for_level = 2
 next_scene_path = "res://scenes/main/game/levels/credits/end_screen.tscn"
 is_last_level = true
 

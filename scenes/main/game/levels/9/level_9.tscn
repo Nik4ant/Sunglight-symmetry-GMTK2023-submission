@@ -10,7 +10,7 @@
 script = ExtResource("1_88jf6")
 exit_door = NodePath("door")
 spawnpoint_marker = NodePath("player_spawnpoint")
-reverses_for_level = 3
+reverses_for_level = 1
 next_scene_path = "res://scenes/main/game/levels/10/level_10.tscn"
 
 [node name="tilemap" type="TileMap" parent="."]

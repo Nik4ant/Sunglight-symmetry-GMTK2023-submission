@@ -4,8 +4,10 @@ var can_return_the_orb: bool = false
 var has_returned: bool = false
 
 func _ready():
+	($door as Door).close(true)
 	$the_orb.modulate.a = 0.0
 	$was_returned.modulate.a = 0.0
+	$player_tilebased.temp_fix_can_die = false
 	$player_tilebased.set_physics_process(false)
 	
 	
@@ -16,8 +18,6 @@ func _ready():
 	super_tween.play()
 	
 	await get_tree().create_timer(1.5).timeout
-	
-	
 	
 	$the_orb.visible = true
 	$was_returned.visible = true
@@ -46,12 +46,10 @@ func _ready():
 
 func _process(delta):
 	if can_return_the_orb and Input.is_action_just_pressed("player_reverse"):
-		# TODO: remove invisible wall
-		# (15; 0) and (16; 0)
+		($door as Door).open()
 		$pls_work.set_cell(0, Vector2i(16, 0), -1)
 		$pls_work.set_cell(0, Vector2i(15, 0), -1)
 		$Ball.visible = true
-		$ui_hint.visible = false
 		$sfx_stuff.play()
 		has_returned = true
 
@@ -73,15 +71,3 @@ func _on_door_player_exited():
 func _on_hint_area_body_entered(body):
 	if body is Player and not has_returned:
 		can_return_the_orb = true
-		var tween = create_tween()
-		$ui_hint.visible = true
-		$ui_hint.modulate.a = 0.0
-		tween.tween_property($ui_hint, "modulate", Color(1.0, 1.0, 1.0, 1.0), 1.0)
-
-
-func _on_hint_area_body_exited(body):
-	if body is Player and not has_returned:
-		can_return_the_orb = false
-		var tween = create_tween()
-		tween.tween_property($ui_hint, "modulate", Color(1.0, 1.0, 1.0, 0.0), 1.0)
-
